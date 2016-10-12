@@ -31,7 +31,8 @@
       <Button x:Name="button_multiplier" Content="x" HorizontalAlignment="Left" Margin="180,160,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="button_multiplier_Click"/>
       <Button x:Name="button_diviser" Content="/" HorizontalAlignment="Left" Margin="180,210,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="button_diviser_Click"/>
 
-      <TextBlock x:Name="historique" HorizontalAlignment="Left" Height="245" Margin="250,10,0,0" TextWrapping="Wrap" Width="133" VerticalAlignment="Top" Background="#FFDDDDDD"/>
+      <TextBlock x:Name="historique" HorizontalAlignment="Left" Height="195" Margin="250,10,0,0" TextWrapping="Wrap" Width="133" VerticalAlignment="Top" Background="#FFDDDDDD"/>
+      <Button x:Name="effacer_hisstorique" Content="Effacer l'historique" HorizontalAlignment="Left" Margin="264,223,0,0" VerticalAlignment="Top" Width="106" Click="effacer_hisstorique_Click"/>
 
 
    </Grid>

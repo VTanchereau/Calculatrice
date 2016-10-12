@@ -37,7 +37,8 @@ namespace Calculatrice
          this.result = "";
          this.calculDone = false;
 
-         historique.Text = "";
+         historique.Text = " HISTORIQUE : ";
+         historique.Text += "\n";
    }
 
       private void button_un_Click(object sender, RoutedEventArgs e)
@@ -124,6 +125,12 @@ namespace Calculatrice
          this.CalculerResultat();
       }
 
+      private void effacer_hisstorique_Click(object sender, RoutedEventArgs e)
+      {
+         historique.Text = " HISTORIQUE : ";
+         historique.Text += "\n";
+      }
+
       private void CalculerResultat()
       {
          if (this.secondOperande == "")
@@ -146,11 +153,6 @@ namespace Calculatrice
                histo += " " +  this.FormatNumber(this.secondOperande);
                histo += " = " + this.FormatNumber(this.result); 
 
-               if (historique.Text == "")
-               {
-                  historique.Text = " HISTORIQUE : ";
-                  historique.Text += "\n";
-               }
                historique.Text += "\n";
                historique.Text += histo;
             }
@@ -215,7 +217,16 @@ namespace Calculatrice
 
       private void EffacerDerniereEntree()
       {
-         if ((this.isFirstOperandeFinished)&&(this.secondOperande == ""))
+         if (this.calculDone)
+         {
+            this.operation = null;
+            this.isFirstOperandeFinished = false;
+            this.firstOperande = "";
+            this.secondOperande = "";
+            ecran_resultat.Text = "";
+            this.EditerExpressionEcran();
+         }
+         else if ((this.isFirstOperandeFinished)&&(this.secondOperande == ""))
          {
             this.operation = null;
             this.isFirstOperandeFinished = false;
@@ -266,6 +277,5 @@ namespace Calculatrice
 
          return nombre.ToString("N", nfi);
       }
-
    }
 }
