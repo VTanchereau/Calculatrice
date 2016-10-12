@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,8 @@ namespace Calculatrice
          this.secondOperande = "";
          this.result = "";
          this.calculDone = false;
+
+         historique.Text = "";
    }
 
       private void button_un_Click(object sender, RoutedEventArgs e)
@@ -118,10 +121,16 @@ namespace Calculatrice
 
       private void button_egal_Click(object sender, RoutedEventArgs e)
       {
+         this.CalculerResultat();
+      }
+
+      private void CalculerResultat()
+      {
          if (this.secondOperande == "")
          {
             ecran_resultat.Text = "SECOND NOMBRE VIDE!";
-         } else
+         }
+         else
          {
             this.operation.FirstOperande = float.Parse(this.firstOperande);
             this.operation.SecondOperande = float.Parse(this.secondOperande);
@@ -129,8 +138,21 @@ namespace Calculatrice
             if (!this.operation.Erreur)
             {
                this.result = this.operation.Result.ToString();
-               ecran_resultat.Text = this.result;
+               ecran_resultat.Text = this.FormatNumber(this.result);
                this.calculDone = true;
+               String histo;
+               histo = " " + this.FormatNumber(this.firstOperande);
+               histo += " " + this.operation.ToString();
+               histo += " " +  this.FormatNumber(this.secondOperande);
+               histo += " = " + this.FormatNumber(this.result); 
+
+               if (historique.Text == "")
+               {
+                  historique.Text = " HISTORIQUE : ";
+                  historique.Text += "\n";
+               }
+               historique.Text += "\n";
+               historique.Text += histo;
             }
             else
             {
@@ -157,6 +179,15 @@ namespace Calculatrice
          {
             this.operation = ope;
             this.isFirstOperandeFinished = true;
+            this.EditerExpressionEcran();
+         }
+         else if (this.secondOperande != "")
+         {
+            this.CalculerResultat();
+            this.operation = ope;
+            this.calculDone = false;
+            this.firstOperande = this.result;
+            this.secondOperande = "";
             this.EditerExpressionEcran();
          }
          
@@ -188,26 +219,53 @@ namespace Calculatrice
          {
             this.operation = null;
             this.isFirstOperandeFinished = false;
-         }else if (this.isFirstOperandeFinished)
+            this.EditerExpressionEcran();
+         }
+         else if (this.isFirstOperandeFinished)
          {
             this.secondOperande = this.secondOperande.Remove(this.secondOperande.Length - 1, 1);
+            this.EditerExpressionEcran();
+         }
+         else if (this.firstOperande != "")
+         {
+            this.firstOperande = this.firstOperande.Remove(this.firstOperande.Length - 1, 1);
+            this.EditerExpressionEcran();
          }
          else
          {
-            this.firstOperande = this.firstOperande.Remove(this.firstOperande.Length - 1, 1);
+            ecran_resultat.Text = "L'EXPRESSION EST VIDE";
          }
-         this.EditerExpressionEcran();
       }
 
       private void EditerExpressionEcran()
       {
-         ecran_expression.Text = this.firstOperande;
-         if (this.isFirstOperandeFinished)
+         if (this.isFirstOperandeFinished && this.secondOperande != "")
          {
-            ecran_expression.Text += this.operation.ToString() +  this.secondOperande;
+            ecran_expression.Text = this.FormatNumber(this.firstOperande) + this.operation.ToString() + this.FormatNumber(this.secondOperande);
+         }
+         else if (this.isFirstOperandeFinished)
+         {
+            ecran_expression.Text = this.FormatNumber(this.firstOperande) + this.operation.ToString();
+         }
+         else if (this.firstOperande != "")
+         {
+            ecran_expression.Text = this.FormatNumber(this.firstOperande);
+         }
+         else
+         {
+            ecran_expression.Text = "";
          }
       }
 
-      
+      private String FormatNumber(String str)
+      {
+         NumberFormatInfo nfi = new CultureInfo("fr-FR", false).NumberFormat;
+         nfi.NumberDecimalDigits = 0;
+         float nombre;
+         nombre = float.Parse(str);
+
+         return nombre.ToString("N", nfi);
+      }
+
    }
 }

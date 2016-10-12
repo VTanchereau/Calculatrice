@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculatrice"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="250">
+        Title="MainWindow" Height="300" Width="405">
    <Grid>
-      <TextBox x:Name="ecran_expression" HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Background="#FFDDDDDD" BorderBrush="#FF707070"/>
-      <TextBox x:Name="ecran_resultat" HorizontalAlignment="Left" Height="25" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+      <TextBlock x:Name="ecran_expression" HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Background="#FFDDDDDD" Foreground="Black"/>
+      <TextBlock x:Name="ecran_resultat" HorizontalAlignment="Left" Height="25" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
 
 
       <Button x:Name="button_un" Content="1" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="button_un_Click"/>
@@ -30,6 +30,8 @@
       <Button x:Name="button_moins" Content="-" HorizontalAlignment="Left" Margin="180,110,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="button_moins_Click"/>
       <Button x:Name="button_multiplier" Content="x" HorizontalAlignment="Left" Margin="180,160,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="button_multiplier_Click"/>
       <Button x:Name="button_diviser" Content="/" HorizontalAlignment="Left" Margin="180,210,0,0" VerticalAlignment="Top" Width="45" Height="45" Click="button_diviser_Click"/>
+
+      <TextBlock x:Name="historique" HorizontalAlignment="Left" Height="245" Margin="250,10,0,0" TextWrapping="Wrap" Width="133" VerticalAlignment="Top" Background="#FFDDDDDD"/>
 
 
    </Grid>
